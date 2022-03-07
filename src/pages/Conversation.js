@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-
+import TextBubble from "../components/TextBubble";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -47,17 +47,27 @@ function Conversation() {
       }
     };
     getConversation();
-  }, [conversationId]);
+  }, [conversationId, conversation]);
 
   return (
     <div>
-      <h1>Conversation</h1>
+      <div className="card-header d-flex justify-content-between align-items-center p-3">
+        <button className="mr-auto p-2 col-0">Back</button>
+        <Link to={`/trainer/profile/${conversation.trainerId}`} className="fw-bold mb-0 col-11">
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+            alt="avatar"
+            className="rounded-circle me-3 shadow-1-strong"
+            width={60}
+          />
+          <span>
+            Brad Pitt - <i>view profile</i>
+          </span>
+        </Link>
+      </div>
 
-      <Link to={`/trainer/profile/${conversation.trainerId}`}>
-        <button>Trainer Profile</button>
-      </Link>
       {conversation.conversations?.map((message) => {
-        return <div key={message._id}>{message.message}</div>;
+        return <TextBubble key={message._id} message={message} />;
       })}
       <form onSubmit={handleSubmit}>
         <input

@@ -14,7 +14,9 @@ function Navbar() {
       <Link to="/">
         <button>Home</button>
       </Link>
-
+      <Link to="/trial">
+        <button>Trial page</button>
+      </Link>
       {isLoggedIn && user &&
         (user.type === "trainer" ? (
           <>
