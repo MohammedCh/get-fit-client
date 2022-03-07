@@ -5,35 +5,60 @@ import { AuthContext } from "../context/auth.context";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider `value` prop
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext); // <== ADD
+  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
   //  Update the rendering logic to display different content
   //  depending on the user being logged in or not
   return (
     <nav>
-      <Link to="/trainee">
+      <Link to="/">
         <button>Home</button>
       </Link>
 
-      {isLoggedIn && (
-        <>
-          <Link to="/queries">
-            <button>Queries</button>
-          </Link>
-          <button onClick={logOutUser}>Logout</button>
-          <button>Logout</button>
-        </>
-      )}
-
+      {isLoggedIn && user &&
+        (user.type === "trainer" ? (
+          <>
+            <Link to="/queries">
+              <button>Queries</button>
+            </Link>
+            <Link to="/trainer/profile">
+              <button>My Profile</button>
+            </Link>
+            <Link to="/conversations/">
+              <button>My conversations</button>
+            </Link>
+            <button onClick={logOutUser}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/queries">
+              <button>Queries</button>
+            </Link>
+            <Link to="/queries/create">
+              <button>Create Query</button>
+            </Link>
+            <Link to="/queries">
+              <button>My Queries</button>
+            </Link>
+            <Link to="/conversations">
+              <button>My conversations</button>
+            </Link>
+            <button onClick={logOutUser}>Logout</button>
+          </>
+        ))}
       {!isLoggedIn && (
         <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
+          <Link to="/signup?userType=trainee">
+            <button>Sign Up trainee</button>
           </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
+          <Link to="/signup?userType=trainer">
+            <button>Sign Up trainer</button>
+          </Link>
+          <Link to="/login?userType=trainee">
+            <button>Login trainee</button>
+          </Link>
+          <Link to="/login?userType=trainer">
+            <button>Login trainer</button>
           </Link>
         </>
       )}

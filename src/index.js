@@ -9,12 +9,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProviderWrapper } from "./context/auth.context";
 
 ReactDOM.render(
-  <React.StrictMode>
+   <React.StrictMode>
     <Router>
       {/* facilitates providing access values of authcontext */}
       <AuthProviderWrapper>
         <App />
-      </AuthProviderWrapper>{" "}
+      </AuthProviderWrapper>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
