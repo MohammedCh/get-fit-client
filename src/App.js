@@ -14,7 +14,9 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
-import TrialPage from "./pages/TrialPage"
+import TrialPage from "./pages/TrialPage";
+import NewConversation from "./pages/NewConversation";
+
 function App() {
   return (
     <div className="App">
@@ -76,6 +78,14 @@ function App() {
           element={
             <IsPrivate>
               <ConversationList />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/new-conversations"
+          element={
+            <IsPrivate>
+              <NewConversation />
             </IsPrivate>
           }
         />

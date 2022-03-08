@@ -33,9 +33,6 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Link to="/queries">
-              <button>Queries</button>
-            </Link>
             <Link to="/queries/create">
               <button>Create Query</button>
             </Link>

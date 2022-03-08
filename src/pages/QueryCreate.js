@@ -12,7 +12,6 @@ function QueryCreate(props) {
   const [age, setAge] = useState(0);
   const [gender, setGender] = useState("");
   const [goal, setGoal] = useState("");
-  const [imgs, setImgs] = useState("");
   const [info, setInfo] = useState("");
 
   const { user } = useContext(AuthContext);
@@ -26,7 +25,6 @@ function QueryCreate(props) {
       age,
       gender,
       goal,
-      imgs,
       info,
     };
     axios
@@ -39,9 +37,8 @@ function QueryCreate(props) {
         setAge(0);
         setGender("");
         setGoal("");
-        setImgs("");
         setInfo("");
-        navigate(`/queries/${response.data.createdQueryId}`)
+        navigate(`/queries/${response.data.createdQueryId}`);
       })
       .catch((error) => console.log(error));
   };
@@ -77,13 +74,6 @@ function QueryCreate(props) {
           name="goal"
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-        />
-        <label>Images:</label>
-        <input
-          type="text"
-          name="imgs"
-          value={imgs}
-          onChange={(e) => setImgs(e.target.value)}
         />
         <label>Other information:</label>
         <textarea

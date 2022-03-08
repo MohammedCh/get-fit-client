@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
 function MyConversationListPage() {
   const [conversations, setConversations] = useState([]);
+
+  const { user } = useContext(AuthContext);
+
   // We set this effect will run only once, after the initial render
   // by setting the empty dependency array - []
   useEffect(() => {
@@ -26,15 +31,58 @@ function MyConversationListPage() {
   return (
     <div className="ConversationListPage">
       <h1>Conversations:</h1>
-      {conversations.map((conversation) => {
-        return (
-          <div className="ConversationCard card" key={conversation._id}>
-            <Link to={`/conversations/${conversation._id}`}>
-              <h3>{conversation._id}</h3>
-            </Link>
-          </div>
-        );
-      })}
+      <ul className="list-unstyled">
+        {conversations.map((conversation) => {
+          return (
+            <li key={conversation._id}>
+              {user.type === "trainee" && (
+                <Link
+                  to={`/conversations/${conversation._id}`}
+                  className="card-header d-flex justify-content-left align-items-center mx-1"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    fontSize: "1.3em",
+                  }}
+                >
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                    alt="avatar"
+                    className="rounded-circle mx-3 shadow-1-strong"
+                    width={60}
+                  />
+                  <span>Brad Pitt</span>
+                </Link>
+              )}
+              {user.type === "trainer" && (
+                <Link
+                  to={`/conversations/${conversation._id}`}
+                  className="card-header row mx-1"
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    fontSize: "1.3em",
+                  }}
+                >
+                  <p className="row align-self-start mx-1">
+                    {conversation.queryId.title}
+                  </p>
+                  {/* <span class="badge bg-danger float-end">1</span> */}
+                  <p className="row align-self-start mx-1"
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                      fontSize: "0.8em",
+                    }}
+                  >
+                    {conversation.queryId.info.substring(0, 20)}
+                  </p>
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
