@@ -40,32 +40,46 @@ function LoginPage(props) {
       });
   };
   return (
-    <div className="LoginPage">
-      <h1>Login - {userType}</h1>
+    <div className="LoginPage p-3">
+      <main className="form-signin text-white">
+        <form onSubmit={handleLoginSubmit}>
+          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+          <div className="form-floating">
+            <input
+              type="username"
+              className="form-control"
+              id="floatingUsername"
+              value={username}
+              onChange={handleUsername}
+              placeholder="Username"
+            />
+            <label htmlFor="floatingUsername">Username</label>
+          </div>
+          <div className="form-floating">
+            <input
+              type="password"
+              className="form-control"
+              id="floatingPassword"
+              value={password}
+              onChange={handlePassword}
+              placeholder="Password"
+            />
+            <label htmlFor="floatingPassword">Password</label>
+          </div>
+          <button
+            className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </form>
+        <p>
+          Don't have an account yet?{" "}
+          <Link to={`/signup?userType=${userType}`}> Sign Up</Link>
+        </p>
 
-      <form onSubmit={handleLoginSubmit}>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsername}
-        />
-
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <button type="submit">Login</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Don't have an account yet?</p>
-      <Link to={`/signup?userType=${userType}`}> Sign Up</Link>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </main>
     </div>
   );
 }
