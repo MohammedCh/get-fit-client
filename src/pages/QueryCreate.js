@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://get-fitapp.herokuapp.com";
 function QueryCreate(props) {
   const navigate = useNavigate();
 
