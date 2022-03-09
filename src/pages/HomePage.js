@@ -20,9 +20,9 @@ function HomePage() {
           </nav> */}
         </div>
       </header>
-      <div className="content row justify-content-center">
+      <div className="content row justify-content-center px-5 pt-3">
         <div
-          className="px-5 py-3 text-white text-center"
+          className="px-1 py-3 text-white text-center"
           style={{
             backgroundColor: "rgba(116,106,117,0.4)",
             borderRadius: "2em",
@@ -38,7 +38,7 @@ function HomePage() {
             <b>-Socrates</b>
           </p>
         </div>
-        <div>
+        <div className="pt-3">
           <Link
             to="/signup?userType=trainee"
             className="btn btn-lg btn-secondary fw-bold border-white m-2"

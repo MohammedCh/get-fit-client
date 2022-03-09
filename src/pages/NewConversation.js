@@ -2,7 +2,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function NewConversation(props) {
   const [message, setMessage] = useState("");
