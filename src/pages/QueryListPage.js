@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import QueryCard from "../components/QueryCard";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function QueryListPage() {
   const [queries, setQueries] = useState([]);

@@ -10,7 +10,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function TrainerProfile(props) {
   const [profile, setProfile] = useState(null);
