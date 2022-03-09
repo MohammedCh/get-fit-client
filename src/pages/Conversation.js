@@ -94,7 +94,7 @@ function Conversation() {
             <div className="card-header d-flex justify-content-between align-items-center p-3">
               <button className="mr-auto p-2 col-0">Back</button>
               <Link
-                to={`/queries/${conversation.queryId}`}
+                to={`/queries/${conversation.queryId._id}`}
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -102,7 +102,7 @@ function Conversation() {
                 className="fw-bold mb-0 col-11"
               >
                 <span>
-                  {conversation.queryId.title}
+                  {conversation.queryId.title}{" "}
                   <i
                     style={{
                       fontSize: "0.8em",

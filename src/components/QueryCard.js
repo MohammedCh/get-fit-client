@@ -4,7 +4,6 @@ import { AuthContext } from "../context/auth.context";
 function QueryCard(props) {
   const { user } = useContext(AuthContext);
 
-  console.log(props);
   const colorPalette = [
     "rgba(241,87,25,0.5)",
     "rgba(194,165,135,0.5)",
@@ -34,6 +33,7 @@ function QueryCard(props) {
           backgroundColor: getRandomColor(),
           textDecoration: "none",
           color: "black",
+          borderRadius: "2em",
         }}
       >
         <div className="card-header">

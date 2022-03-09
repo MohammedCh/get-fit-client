@@ -11,7 +11,6 @@ function QueryListPage() {
   const getAllQueries = () => {
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
-    console.log(storedToken);
     // Send the token through the request "Authorization" Headers
     axios
       .get(`${API_URL}/api/queries`, {

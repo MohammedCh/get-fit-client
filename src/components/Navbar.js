@@ -17,13 +17,14 @@ function Navbar() {
       <Link to="/trial">
         <button>Trial page</button>
       </Link>
-      {isLoggedIn && user &&
+      {isLoggedIn &&
+        user &&
         (user.type === "trainer" ? (
           <>
             <Link to="/queries">
               <button>Queries</button>
             </Link>
-            <Link to="/trainer/profile">
+            <Link to={`/trainer/profile/${user._id}`}>
               <button>My Profile</button>
             </Link>
             <Link to="/conversations/">

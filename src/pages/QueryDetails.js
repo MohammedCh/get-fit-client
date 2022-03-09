@@ -9,6 +9,8 @@ const API_URL = "http://localhost:5005";
 function QueryDetails() {
   const [query, setQuery] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [trainerConvId, setTrainerConvId] = useState("");
+
   const navigate = useNavigate();
 
   const { queryId } = useParams();
@@ -34,6 +36,21 @@ function QueryDetails() {
     getQuery();
   }, [queryId]);
 
+  useEffect(() => {
+    function findExistingConversationId() {
+      if (!isLoading) {
+        query.conversations.forEach((conversation) => {
+          console.log("hello");
+          if (conversation.trainerId === user._id) {
+            setTrainerConvId(conversation._id);
+          }
+        });
+      }
+    }
+    findExistingConversationId();
+  }, [isLoading]);
+
+  console.log(isLoading);
   // const handleReplySubmit = (e) => {
   //   e.preventDefault();
   //   const storedToken = localStorage.getItem("authToken");
@@ -55,65 +72,55 @@ function QueryDetails() {
   return (
     <div className="QueryDetails">
       {!isLoading && (
-        <div className="container">
-          <h1>{query.title}</h1>
+        <div
+          className="container"
+          style={{
+            backgroundColor: "rgba(194,165,135,0.2)",
+            borderRadius: "2em",
+          }}
+        >
+          <div className="row justify-content-center py-2 border-bottom">
+            <h1>{query.title}</h1>
+          </div>
+          <div className="row d-flex-inline py-2 border-bottom">
+            <span>
+              <b>Age: </b>
+              {query.age} -- <b> Gender: </b>
+              {query.gender} --<b> Goal: </b>
+              {query.goal}
+            </span>
+          </div>
           <div className="row" style={{ textAlign: "left" }}>
-            <div className="col-sm-3 py-2">
-              <div className="row">
-                <div className="col-5 order-1" style={{ textAlign: "right" }}>
-                  <b>Age:</b>
-                </div>
-                <div className="col-5 order-4" style={{ textAlign: "right" }}>
-                  <b>Gender:</b>
-                </div>
-                <div className="col-5 order-7" style={{ textAlign: "right" }}>
-                  <b>Goal:</b>
-                </div>
-                <div className="col-5 order-2" style={{ textAlign: "left" }}>
-                  {query.age}
-                </div>
-                <div className="col-5 order-5" style={{ textAlign: "left" }}>
-                  {query.gender}
-                </div>
-                <div className="col-5 order-8" style={{ textAlign: "left" }}>
-                  {query.goal}
-                </div>
-              </div>
+            <div>{query.info}</div>
+            <div
+              className="d-flex justify-content-center py-2"
+              style={{ textAlign: "left" }}
+            >
               {user.type === "trainer" && (
-                <div
-                  className="d-flex justify-content-center py-1"
-                  style={{ textAlign: "left" }}
-                >
-                  {/* <form onSubmit={handleReplySubmit}>
-                    <button type="submit">Reply</button>
-                  </form> */}
-                  <Link to="/new-conversations" state={{ query }}>
-                    <button>Reply</button>
-                  </Link>
-                </div>
+                <>
+                  {trainerConvId ? (
+                    <Link to={`/conversations/${trainerConvId}`}>
+                      <button>Got to chat</button>
+                    </Link>
+                  ) : (
+                    <Link to="/new-conversations" state={{ query }}>
+                      <button>Reply</button>
+                    </Link>
+                  )}
+                </>
               )}
               {user.type === "trainee" && (
-                <div>
-                  <div
-                    className="d-flex justify-content-center py-1"
-                    style={{ textAlign: "left" }}
-                  >
-                    <Link to="/">
-                      <button>Delete Query</button>
-                    </Link>
-                  </div>
-                  <div
-                    className="d-flex justify-content-center py-1"
-                    style={{ textAlign: "left" }}
-                  >
-                    <Link to={`/projects/edit/${queryId}`}>
-                      <button>Edit Query</button>
-                    </Link>
-                  </div>
-                </div>
+                <>
+                  {/* TODO fix these buttons and add functionality */}
+                  <Link to={`/projects/edit/${queryId}`} className="px-2">
+                    <button>Edit Query</button>
+                  </Link>
+                  <Link to="/" className="px-2">
+                    <button>Delete Query</button>
+                  </Link>
+                </>
               )}
             </div>
-            <div className="col">{query.info}</div>
           </div>
         </div>
       )}

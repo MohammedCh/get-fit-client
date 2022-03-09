@@ -10,7 +10,7 @@ function NewConversation(props) {
 
   const location = useLocation();
   const { query } = location.state;
-  console.log(query);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const storedToken = localStorage.getItem("authToken");
@@ -34,7 +34,7 @@ function NewConversation(props) {
       <div className="card-header d-flex justify-content-between align-items-center p-3">
         <button className="mr-auto p-2 col-0">Back</button>
         <Link
-          to={`/queries/${query.queryId}`}
+          to={`/queries/${query._id}`}
           style={{
             textDecoration: "none",
             color: "black",
@@ -42,7 +42,7 @@ function NewConversation(props) {
           className="fw-bold mb-0 col-11"
         >
           <span>
-            {query.title}
+            {query.title}{" "}
             <i
               style={{
                 fontSize: "0.8em",
