@@ -1,5 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -14,7 +15,6 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
-import TrialPage from "./pages/TrialPage";
 import NewConversation from "./pages/NewConversation";
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/trial" element={<TrialPage />} />
         <Route
           path="/queries"
           element={

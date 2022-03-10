@@ -23,7 +23,7 @@ function Navbar() {
               className="nav-link bg-light rounded-circle mx-3"
               src={homeIcon}
               alt="home"
-              width={"80%"}
+              width={"60%"}
             />
           </Link>
         </li>
@@ -37,7 +37,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={queriesIcon}
                     alt="queries"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>
@@ -47,7 +47,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={profileIcon}
                     alt="profile"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>
@@ -57,7 +57,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={conversationsIcon}
                     alt="conversations"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>
@@ -76,7 +76,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={createQueryIcon}
                     alt="create query"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>
@@ -86,7 +86,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={queriesIcon}
                     alt="queries"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>
@@ -96,7 +96,7 @@ function Navbar() {
                     className="nav-link bg-light rounded-circle mx-3"
                     src={conversationsIcon}
                     alt="conversations"
-                    width={"80%"}
+                    width={"60%"}
                   />
                 </Link>
               </li>

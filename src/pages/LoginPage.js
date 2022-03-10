@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function LoginPage(props) {
   const [username, setUsername] = useState("");

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 function HomePage() {
   return (
     <>
-      <header className="mb-auto p-5">
+      <header className="mb-auto p-4">
         <div>
-          <h1 className="float-md-start mb-0 text-white">Get fit!</h1>
+          <h1 className="mb-0 text-white">Get fit!</h1>
         </div>
       </header>
-      <div className="content justify-content-center px-5 pt-3">
+      <div className="content justify-content-center px-5 pt-1">
         <div
           className="px-1 py-3 text-white text-center"
           style={{
@@ -34,7 +34,7 @@ function HomePage() {
             I wanna train!
           </Link>
           <Link
-            to="/signup?userType=trainee"
+            to="/signup?userType=trainer"
             className="btn btn-lg btn-secondary fw-bold border-white m-2"
           >
             Become a trainer!

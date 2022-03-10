@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function SignupPage(props) {
   const [username, setUsername] = useState("");
@@ -12,6 +12,7 @@ function SignupPage(props) {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+  const [imgFile, setImgFile] = useState(null);
 
   const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -26,6 +27,9 @@ function SignupPage(props) {
     if (e.target.files && e.target.files[0]) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
     }
+    // imgUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new movie in '/api/movies' POST ro
+    setImgFile(e.target.files[0]);
   };
 
   //get user type from the URL query params
@@ -34,18 +38,31 @@ function SignupPage(props) {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Create an object representing the request body
-    const requestBody =
-      userType === "trainee"
-        ? { username, password, type: userType }
-        : { username, password, type: userType, name, description, image };
+    const uploadData = new FormData();
+
+    uploadData.append("username", username);
+    uploadData.append("password", password);
+    uploadData.append("type", userType);
+
+    if (userType === "trainer") {
+      uploadData.append("name", name);
+      uploadData.append("description", description);
+      uploadData.append("imgUrl", imgFile);
+    }
 
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     axios
-      .post(`${API_URL}/api/auth/signup`, requestBody)
+      .post(`${API_URL}/api/auth/signup`, uploadData)
       .then((response) => {
+        setUsername("");
+        setPassword("");
+        setName("");
+        setDescription("");
+        setImage("");
+        setImagePreview("");
+        setImgFile(null);
         navigate(`/login?userType=${userType}`);
       })
       .catch((error) => {
@@ -61,7 +78,7 @@ function SignupPage(props) {
           <h1 className="h3 mb-3 fw-normal">Please sign up</h1>
           <div className="form-floating text-black">
             <input
-              type="username"
+              type="text"
               className="form-control"
               id="floatingUsername"
               value={username}
