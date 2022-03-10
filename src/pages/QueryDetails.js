@@ -28,7 +28,6 @@ function QueryDetails() {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         setQuery(response.data);
-        //console.log(response.data)
         findExistingConversationId(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -38,8 +37,6 @@ function QueryDetails() {
     getQuery();
   }, [queryId]);
   function findExistingConversationId(query) {
-    console.log(query);
-
       query.conversations.forEach((conversation) => {
         if (conversation.trainerId === user._id) {
           setTrainerConvId(conversation._id);

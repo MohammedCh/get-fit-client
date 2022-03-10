@@ -22,7 +22,7 @@ function MyConversationListPage() {
         .get(`${API_URL}/api/conversations`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
-        .then((response) => {console.log(response );setConversations(response.data)})
+        .then((response) => setConversations(response.data))
         .catch((error) => console.log(error));
     };
     getMyConversations();

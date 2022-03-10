@@ -11,11 +11,10 @@ function Conversation() {
   const { conversationId } = useParams();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
-  const location = useLocation();
-  const { profile } = location.state;
+  const [profile, setProfile] = useState(null);
 
   const { user } = useContext(AuthContext);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,11 +55,19 @@ function Conversation() {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       );
+      console.log(response.data.trainerId)
+      const responseProfile = await axios.get(
+        `${API_URL}/api/trainers/profile/${response.data.trainerId}`,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
       setConversation(response.data);
+      setProfile(responseProfile.data);
       setIsLoading(false);
       scrollToBottom()
     } catch (error) {
-      console.log("error :>> ", error.response.data.errorMessage);
+      console.log("error :>> ", error.response.data);
     }
   };
   // Get the token from the localStorage

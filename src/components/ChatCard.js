@@ -8,8 +8,8 @@ const API_URL = process.env.REACT_APP_BACKEND_URL;
 function QueryCard(props) {
   const { user } = useContext(AuthContext);
   const { conversation } = props;
-  const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -39,7 +39,6 @@ function QueryCard(props) {
           {user.type === "trainee" && (
             <Link
               to={`/conversations/${conversation._id}`}
-              state={{ profile }}
               className="card-header d-flex justify-content-left align-items-center m-1"
               style={{
                 textDecoration: "none",
