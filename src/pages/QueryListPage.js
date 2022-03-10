@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import QueryCard from "../components/QueryCard";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://get-fitapp.herokuapp.com";
 
 function QueryListPage() {
   const [queries, setQueries] = useState([]);

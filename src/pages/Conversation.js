@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://get-fitapp.herokuapp.com";
 
 function Conversation() {
   const [conversation, setConversation] = useState([]);
