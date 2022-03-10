@@ -1,7 +1,7 @@
 import { Link, useParams, useLocation } from "react-router-dom";
 import TextBubble from "../components/TextBubble";
 import axios from "axios";
-import React ,{ useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -14,7 +14,6 @@ function Conversation() {
   const [profile, setProfile] = useState(null);
 
   const { user } = useContext(AuthContext);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +54,7 @@ function Conversation() {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       );
-      console.log(response.data.trainerId)
+      console.log(response.data.trainerId);
       const responseProfile = await axios.get(
         `${API_URL}/api/trainers/profile/${response.data.trainerId}`,
         {
@@ -65,7 +64,7 @@ function Conversation() {
       setConversation(response.data);
       setProfile(responseProfile.data);
       setIsLoading(false);
-      scrollToBottom()
+      scrollToBottom();
     } catch (error) {
       console.log("error :>> ", error.response.data);
     }
@@ -80,7 +79,9 @@ function Conversation() {
       {!isLoading && (
         <>
           {user.type === "trainee" && (
-            <div className="card-header d-flex justify-content-between align-items-center p-3 fixed-top bg-dark">
+            <div
+              className="card-header d-flex justify-content-between align-items-center fixed-top bg-dark"
+            >
               <Link to={"/conversations"}>
                 <button className="btn btn-lg btn-secondary fw-bold m-2">
                   {"<"}
@@ -108,6 +109,7 @@ function Conversation() {
                       textDecoration: "underline",
                     }}
                   >
+                    {" "}
                     view profile
                   </i>
                 </span>
@@ -115,7 +117,7 @@ function Conversation() {
             </div>
           )}
           {user.type === "trainer" && (
-            <div className="card-header d-flex justify-content-between align-items-center p-3 fixed-top bg-dark">
+            <div className="card-header d-flex justify-content-between align-items-center p-3 bg-dark">
               <Link to={"/conversations"}>
                 <button className="btn btn-lg btn-secondary fw-bold m-2">
                   {"<"}
@@ -137,6 +139,7 @@ function Conversation() {
                       textDecoration: "underline",
                     }}
                   >
+                    {" "}
                     view query
                   </i>
                 </span>
@@ -144,7 +147,7 @@ function Conversation() {
             </div>
           )}
 
-          <ul className="list-unstyled">
+          <ul className="list-unstyled" style={{marginTop:"15%"}}>
             {conversation.conversations?.map((message) => {
               return <TextBubble key={message._id} message={message} />;
             })}
@@ -172,7 +175,11 @@ function Conversation() {
               </div>
             </div>
           </form>
-          <input style={{width:"1px", height:"1px", marginTop:"15%"}} ref={fieldRef} className="bg-dark"/>
+          <input
+            style={{ width: "1px", height: "1px", marginTop: "15%" }}
+            ref={fieldRef}
+            className="bg-dark"
+          />
         </>
       )}
     </div>
