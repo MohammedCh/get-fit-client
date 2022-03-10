@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function Conversation() {
   const [conversation, setConversation] = useState([]);
@@ -61,14 +61,18 @@ function Conversation() {
         <>
           {user.type === "trainee" && (
             <div className="card-header d-flex justify-content-between align-items-center p-3">
-              <button className="mr-auto p-2 col-0">Back</button>
+              <Link to={"/conversations"}>
+                <button className="btn btn-lg btn-secondary fw-bold m-2">
+                  {"<"}
+                </button>
+              </Link>
               <Link
                 to={`/trainer/profile/${conversation.trainerId}`}
                 style={{
                   textDecoration: "none",
                   color: "black",
                 }}
-                className="fw-bold mb-0 col-11"
+                className="fw-bold mb-0 col-11 text-white"
               >
                 <img
                   src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
@@ -77,7 +81,7 @@ function Conversation() {
                   width={60}
                 />
                 <span>
-                  Brad Pitt
+                  Brad Pitt{" "}
                   <i
                     style={{
                       fontSize: "0.8em",
@@ -92,14 +96,18 @@ function Conversation() {
           )}
           {user.type === "trainer" && (
             <div className="card-header d-flex justify-content-between align-items-center p-3">
-              <button className="mr-auto p-2 col-0">Back</button>
+              <Link to={"/conversations"}>
+                <button className="btn btn-lg btn-secondary fw-bold m-2">
+                  {"<"}
+                </button>
+              </Link>
               <Link
                 to={`/queries/${conversation.queryId._id}`}
                 style={{
                   textDecoration: "none",
                   color: "black",
                 }}
-                className="fw-bold mb-0 col-11"
+                className="fw-bold mb-0 col-11 text-white"
               >
                 <span>
                   {conversation.queryId.title}{" "}

@@ -1,15 +1,16 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import { Link } from "react-router-dom";
 
 function QueryCard(props) {
   const { user } = useContext(AuthContext);
 
   const colorPalette = [
-    "rgba(241,87,25,0.5)",
-    "rgba(194,165,135,0.5)",
-    "rgba(133,147,86,0.5)",
-    "rgba(116,106,117,0.5)",
-    "rgba(235,196,65,0.5)",
+    "rgba(241,87,25,0.8)",
+    "rgba(194,165,135,0.8)",
+    "rgba(133,147,86,0.8)",
+    "rgba(116,106,117,0.8)",
+    "rgba(235,196,65,0.8)",
   ];
   const colorPalette2 = [
     "rgba(14, 13, 19, 0.5)",
@@ -24,15 +25,15 @@ function QueryCard(props) {
 
   return (
     <li className="d-flex mb-4 justify-content-center">
-      <a
-        href={`/queries/${props.query._id}`}
+      <Link
+        to={`/queries/${props.query._id}`}
         className="card mb-3 w-100"
         style={{
           maxHeight: "12rem",
           maxWidth: "80%",
           backgroundColor: getRandomColor(),
           textDecoration: "none",
-          color: "black",
+          color: "white",
           borderRadius: "2em",
         }}
       >
@@ -46,7 +47,7 @@ function QueryCard(props) {
           </p>
           <p className="card-text">{props.query.info.substring(0, 50)}...</p>
         </div>
-      </a>
+      </Link>
     </li>
   );
 }

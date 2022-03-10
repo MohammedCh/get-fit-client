@@ -11,13 +11,13 @@ function TextBubble(props) {
       }`}
     >
       <div
-        className="card"
+        className="card text-white"
         style={{
           width: "75%",
           backgroundColor: `${
             user._id === props.message.senderId
-              ? "rgba(194, 188, 193, 0.5)"
-              : "rgba(133,147,86,0.5)"
+              ? "rgba(116,106,117,0.8)"
+              : "rgba(133,147,86,0.95)"
           }`,
         }}
       >

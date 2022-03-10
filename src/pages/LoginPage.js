@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function LoginPage(props) {
   const [username, setUsername] = useState("");
@@ -44,7 +44,7 @@ function LoginPage(props) {
       <main className="form-signin text-white">
         <form onSubmit={handleLoginSubmit}>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-          <div className="form-floating">
+          <div className="form-floating text-black">
             <input
               type="username"
               className="form-control"
@@ -55,7 +55,7 @@ function LoginPage(props) {
             />
             <label htmlFor="floatingUsername">Username</label>
           </div>
-          <div className="form-floating">
+          <div className="form-floating text-black">
             <input
               type="password"
               className="form-control"

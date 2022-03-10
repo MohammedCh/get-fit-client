@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import QueryCard from "../components/QueryCard";
+import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function QueryListPage() {
   const [queries, setQueries] = useState([]);
+  const { user } = useContext(AuthContext);
 
   const getAllQueries = () => {
     // Get the token from the localStorage
@@ -27,8 +29,8 @@ function QueryListPage() {
   }, []);
 
   return (
-    <div className="QueryListPage">
-      <h1>Queries:</h1>
+    <div className="QueryListPage text-white">
+      <h1>{user.type === "traibee" ? "My" : "All"} Queries</h1>
       <ul className="list-unstyled">
         {queries?.map((query) => {
           return <QueryCard key={query._id} query={query} />;

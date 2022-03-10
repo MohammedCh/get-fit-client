@@ -10,7 +10,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function TrainerProfile(props) {
   const [profile, setProfile] = useState(null);
@@ -43,22 +43,22 @@ function TrainerProfile(props) {
     };
     getProfile();
   }, [user]);
-
   return (
     <div>
       {!isLoading && (
         <div className="container">
+          <h1 className="text-white">{user.type==="trainer"?"My":`${profile.name}'s`} profile</h1>
           <div className="row align-items-md-stretch py-1">
             <div className="col-md-3">
               <div className="h-100 p-1 rounded-3">
                 <img src={profile.imgUrl} alt="avatar" width="100%" />
               </div>
             </div>
-            <div className="col-md-9" style={{ textAlign: "left" }}>
+            <div className="col-md-9 text-white" style={{ textAlign: "left" }}>
               <div
-                className="h-100 p-5 border rounded-3"
+                className="h-100 p-4 rounded-3"
                 style={{
-                  backgroundColor: "rgba(194,165,135,0.2)",
+                  backgroundColor: "rgba(194,165,135,0.5)",
                 }}
               >
                 <h2>{profile.name}</h2>

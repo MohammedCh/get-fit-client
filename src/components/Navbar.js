@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import conversationsIcon from "../conversations.png";
+import profileIcon from "../profile.png";
+import homeIcon from "../home.png";
+import queriesIcon from "../queries.png";
+import createQueryIcon from "../createQuery.png";
 
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
@@ -10,58 +15,102 @@ function Navbar() {
   //  Update the rendering logic to display different content
   //  depending on the user being logged in or not
   return (
-    <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-      <Link to="/trial">
-        <button>Trial page</button>
-      </Link>
-      {isLoggedIn &&
-        user &&
-        (user.type === "trainer" ? (
-          <>
-            <Link to="/queries">
-              <button>Queries</button>
-            </Link>
-            <Link to={`/trainer/profile/${user._id}`}>
-              <button>My Profile</button>
-            </Link>
-            <Link to="/conversations/">
-              <button>My conversations</button>
-            </Link>
-            <button onClick={logOutUser}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/queries/create">
-              <button>Create Query</button>
-            </Link>
-            <Link to="/queries">
-              <button>My Queries</button>
-            </Link>
-            <Link to="/conversations">
-              <button>My conversations</button>
-            </Link>
-            <button onClick={logOutUser}>Logout</button>
-          </>
-        ))}
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup?userType=trainee">
-            <button>Sign Up trainee</button>
+    <nav className="navbar navbar-expand bg-dark fixed-bottom">
+      <ul className="navbar-nav w-100 d-flex justify-content-center">
+        <li className="nav-item">
+          <Link to={"/"}>
+            <img
+              className="nav-link bg-light rounded-circle mx-3"
+              src={homeIcon}
+              alt="home"
+              width={"80%"}
+            />
           </Link>
-          <Link to="/signup?userType=trainer">
-            <button>Sign Up trainer</button>
-          </Link>
-          <Link to="/login?userType=trainee">
-            <button>Login trainee</button>
-          </Link>
-          <Link to="/login?userType=trainer">
-            <button>Login trainer</button>
-          </Link>
-        </>
-      )}
+        </li>
+        {isLoggedIn &&
+          user &&
+          (user.type === "trainer" ? (
+            <>
+              <li className="nav-item">
+                <Link to={"/queries"}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={queriesIcon}
+                    alt="queries"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={`/trainer/profile/${user._id}`}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={profileIcon}
+                    alt="profile"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/conversations"}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={conversationsIcon}
+                    alt="conversations"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <button
+                className="btn btn-lg btn-secondary fw-bold border-white mx-4"
+                onClick={logOutUser}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link to={"/queries/create"}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={createQueryIcon}
+                    alt="create query"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/queries"}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={queriesIcon}
+                    alt="queries"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/conversations"}>
+                  <img
+                    className="nav-link bg-light rounded-circle mx-3"
+                    src={conversationsIcon}
+                    alt="conversations"
+                    width={"80%"}
+                  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="btn btn-lg btn-secondary fw-bold border-white mx-4"
+                  onClick={logOutUser}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          ))}
+      </ul>
     </nav>
   );
 }

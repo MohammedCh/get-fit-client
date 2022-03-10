@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function QueryDetails() {
   const [query, setQuery] = useState(null);
@@ -35,12 +35,10 @@ function QueryDetails() {
     };
     getQuery();
   }, [queryId]);
-
   useEffect(() => {
     function findExistingConversationId() {
       if (!isLoading) {
         query.conversations.forEach((conversation) => {
-          console.log("hello");
           if (conversation.trainerId === user._id) {
             setTrainerConvId(conversation._id);
           }
@@ -50,7 +48,6 @@ function QueryDetails() {
     findExistingConversationId();
   }, [isLoading]);
 
-  console.log(isLoading);
   // const handleReplySubmit = (e) => {
   //   e.preventDefault();
   //   const storedToken = localStorage.getItem("authToken");
@@ -70,16 +67,16 @@ function QueryDetails() {
   // };
 
   return (
-    <div className="QueryDetails">
+    <div className="QueryDetails text-white">
       {!isLoading && (
         <div
           className="container"
           style={{
-            backgroundColor: "rgba(194,165,135,0.2)",
+            backgroundColor: "rgba(194,165,135,0.5)",
             borderRadius: "2em",
           }}
         >
-          <div className="row justify-content-center py-2 border-bottom">
+          <div className="justify-content-center py-2 border-bottom">
             <h1>{query.title}</h1>
           </div>
           <div className="row d-flex-inline py-2 border-bottom">
@@ -100,11 +97,15 @@ function QueryDetails() {
                 <>
                   {trainerConvId ? (
                     <Link to={`/conversations/${trainerConvId}`}>
-                      <button>Got to chat</button>
+                      <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
+                        Go to chat
+                      </button>
                     </Link>
                   ) : (
                     <Link to="/new-conversations" state={{ query }}>
-                      <button>Reply</button>
+                      <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
+                        Reply
+                      </button>
                     </Link>
                   )}
                 </>
@@ -113,14 +114,23 @@ function QueryDetails() {
                 <>
                   {/* TODO fix these buttons and add functionality */}
                   <Link to={`/projects/edit/${queryId}`} className="px-2">
-                    <button>Edit Query</button>
+                    <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
+                      Edit Query
+                    </button>
                   </Link>
                   <Link to="/" className="px-2">
-                    <button>Delete Query</button>
+                    <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
+                      Delete Query
+                    </button>
                   </Link>
                 </>
               )}
             </div>
+            <Link to={"/queries"} className="d-flex justify-content-center">
+              <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
+                Back to queries
+              </button>
+            </Link>
           </div>
         </div>
       )}

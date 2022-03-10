@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://get-fitapp.herokuapp.com";
+const API_URL = "http://localhost:5005";
 
 function MyConversationListPage() {
   const [conversations, setConversations] = useState([]);
@@ -29,8 +29,9 @@ function MyConversationListPage() {
   }, []);
 
   return (
-    <div className="ConversationListPage">
-      <h1>Conversations:</h1>
+    <div className="ConversationListPage text-white">
+      <h1>My Conversations</h1>
+      {!conversations && <h3 className="pt-5">No conversations yet :( </h3>}
       <ul className="list-unstyled">
         {conversations.map((conversation) => {
           return (
@@ -38,11 +39,12 @@ function MyConversationListPage() {
               {user.type === "trainee" && (
                 <Link
                   to={`/conversations/${conversation._id}`}
-                  className="card-header d-flex justify-content-left align-items-center mx-1"
+                  className="card-header d-flex justify-content-left align-items-center m-1"
                   style={{
                     textDecoration: "none",
                     color: "black",
                     fontSize: "1.3em",
+                    backgroundColor: "rgba(194,165,135,0.5)",
                   }}
                 >
                   <img
@@ -57,18 +59,20 @@ function MyConversationListPage() {
               {user.type === "trainer" && (
                 <Link
                   to={`/conversations/${conversation._id}`}
-                  className="card-header row mx-1"
+                  className="card-header row m-1"
                   style={{
                     textDecoration: "none",
                     color: "black",
                     fontSize: "1.3em",
+                    backgroundColor: "rgba(194,165,135,0.5)"
                   }}
                 >
                   <p className="row align-self-start mx-1">
                     {conversation.queryId.title}
                   </p>
                   {/* <span class="badge bg-danger float-end">1</span> */}
-                  <p className="row align-self-start mx-1"
+                  <p
+                    className="row align-self-start mx-1"
                     style={{
                       textDecoration: "none",
                       color: "black",

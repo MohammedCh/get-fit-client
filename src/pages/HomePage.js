@@ -6,21 +6,9 @@ function HomePage() {
       <header className="mb-auto p-5">
         <div>
           <h1 className="float-md-start mb-0 text-white">Get fit!</h1>
-
-          {/* <nav className="nav nav-masthead justify-content-center float-md-end">
-            <a className="nav-link active" aria-current="page" href="#">
-              Home
-            </a>
-            <a className="nav-link" href="#">
-              Features
-            </a>
-            <a className="nav-link" href="#">
-              Contact
-            </a>
-          </nav> */}
         </div>
       </header>
-      <div className="content row justify-content-center px-5 pt-3">
+      <div className="content justify-content-center px-5 pt-3">
         <div
           className="px-1 py-3 text-white text-center"
           style={{
