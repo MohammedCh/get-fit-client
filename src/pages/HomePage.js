@@ -26,20 +26,6 @@ function HomePage() {
             <b>-Socrates</b>
           </p>
         </div>
-        <div className="pt-3">
-          <Link
-            to="/signup?userType=trainee"
-            className="btn btn-lg btn-secondary fw-bold border-white m-2"
-          >
-            I wanna train!
-          </Link>
-          <Link
-            to="/signup?userType=trainer"
-            className="btn btn-lg btn-secondary fw-bold border-white m-2"
-          >
-            Become a trainer!
-          </Link>
-        </div>
       </div>
     </>
   );

@@ -37,50 +37,73 @@ function LoginPage(props) {
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
         setErrorMessage(errorDescription);
-        console.log(error.response.data)
+        console.log(error.response.data);
       });
   };
   return (
     <div className="LoginPage p-3">
-      <main className="form-signin text-white">
-        <form onSubmit={handleLoginSubmit}>
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-          <div className="form-floating text-black">
-            <input
-              type="username"
-              className="form-control"
-              id="floatingUsername"
-              value={username}
-              onChange={handleUsername}
-              placeholder="Username"
-            />
-            <label htmlFor="floatingUsername">Username</label>
-          </div>
-          <div className="form-floating text-black">
-            <input
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              value={password}
-              onChange={handlePassword}
-              placeholder="Password"
-            />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
-          <button
-            className="btn btn-lg btn-secondary fw-bold border-white m-2"
-            type="submit"
-          >
-            Sign in
-          </button>
-        </form>
-        <p>
-          Don't have an account yet?{" "}
-          <Link to={`/signup?userType=${userType}`}> Sign Up</Link>
-        </p>
-
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </main>
+      {!userType && (
+        <ul className="list-unstyled pt-5">
+          <li className="nav-item">
+            <Link
+              to="/login?userType=trainee"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              Trainee
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/login?userType=trainer"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              Trainer
+            </Link>
+          </li>
+        </ul>
+      )}
+      {userType && (
+        <main className="form-signin text-white">
+          <form onSubmit={handleLoginSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <div className="form-floating text-black">
+              <input
+                type="username"
+                className="form-control"
+                id="floatingUsername"
+                value={username}
+                onChange={handleUsername}
+                placeholder="Username"
+              />
+              <label htmlFor="floatingUsername">Username</label>
+            </div>
+            <div className="form-floating text-black">
+              <input
+                type="password"
+                className="form-control"
+                id="floatingPassword"
+                value={password}
+                onChange={handlePassword}
+                placeholder="Password"
+              />
+              <label htmlFor="floatingPassword">Password</label>
+            </div>
+            <button
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+              type="submit"
+            >
+              Sign in
+            </button>
+          </form>
+          {errorMessage && (
+            <p className="error-message text-danger fw-bold">{errorMessage}</p>
+          )}
+          <p>
+            Don't have an account yet?{" "}
+            <Link to={`/signup?userType=${userType}`}> Sign Up</Link>
+          </p>
+        </main>
+      )}
     </div>
   );
 }

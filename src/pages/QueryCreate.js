@@ -49,7 +49,7 @@ function QueryCreate(props) {
       .catch((error) => console.log(error));
   };
   return (
-    <div className="AddQuery text-white">
+    <div className="AddQuery text-white mx-3">
       <h3>Add Query</h3>
       <p>
         In this page you can create a query that will be seen by our trainers.

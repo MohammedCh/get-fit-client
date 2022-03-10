@@ -17,6 +17,16 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand bg-dark fixed-bottom">
       <ul className="navbar-nav w-100 d-flex justify-content-center">
+        {!isLoggedIn && (
+          <li className="nav-item">
+            <Link
+              to="/signup"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              Sign up
+            </Link>
+          </li>
+        )}
         <li className="nav-item">
           <Link to={"/"}>
             <img
@@ -27,6 +37,16 @@ function Navbar() {
             />
           </Link>
         </li>
+        {!isLoggedIn && (
+          <li className="nav-item">
+            <Link
+              to="/login"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              Login
+            </Link>
+          </li>
+        )}
         {isLoggedIn &&
           user &&
           (user.type === "trainer" ? (
@@ -116,3 +136,70 @@ function Navbar() {
 }
 
 export default Navbar;
+
+// {traineeButtons && (
+//   <>
+//     <li className="nav-item">
+//       <Link
+//         to="/login?userType=trainee"
+//         className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       >
+//         Login
+//       </Link>
+//     </li>
+//     <li className="nav-item">
+//       <Link
+//         to="/signup?userType=trainee"
+//         className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       >
+//         Signup
+//       </Link>
+//     </li>
+//   </>
+// )}
+// {!traineeButtons && (
+//   <li className="nav-item">
+//     <button
+//       className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       onClick={() => {
+//         setTraineeButtons(true);
+//         setTrainerButtons(false);
+//       }}
+//     >
+//       For trainees
+//     </button>
+//   </li>
+// )}
+// {trainerButtons && (
+//   <>
+//     <li className="nav-item">
+//       <Link
+//         to="/login?userType=trainer"
+//         className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       >
+//         Login
+//       </Link>
+//     </li>
+//     <li className="nav-item">
+//       <Link
+//         to="/signup?userType=trainer"
+//         className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       >
+//         Signup
+//       </Link>
+//     </li>
+//   </>
+// )}
+// {!trainerButtons && (
+//   <li className="nav-item">
+//     <button
+//       className="btn btn-lg btn-secondary fw-bold border-white m-2"
+//       onClick={() => {
+//         setTrainerButtons(true);
+//         setTraineeButtons(false);
+//       }}
+//     >
+//       For trainers
+//     </button>
+//   </li>
+// )}

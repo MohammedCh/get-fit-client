@@ -30,7 +30,7 @@ function QueryListPage() {
 
   return (
     <div className="QueryListPage text-white">
-      <h1>{user.type === "traibee" ? "My" : "All"} Queries</h1>
+      <h1>{user.type === "trainee" ? "My" : "All"} Queries</h1>
       <ul className="list-unstyled">
         {queries?.map((query) => {
           return <QueryCard key={query._id} query={query} />;

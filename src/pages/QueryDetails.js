@@ -28,43 +28,40 @@ function QueryDetails() {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         setQuery(response.data);
+        //console.log(response.data)
+        findExistingConversationId(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.log("error :>> ", error);
+        console.log("error :>> ", error.response.data.errorMessage);
       }
     };
     getQuery();
   }, [queryId]);
-  useEffect(() => {
-    function findExistingConversationId() {
-      if (!isLoading) {
-        query.conversations.forEach((conversation) => {
-          if (conversation.trainerId === user._id) {
-            setTrainerConvId(conversation._id);
-          }
-        });
-      }
+  function findExistingConversationId(query) {
+    console.log(query);
+
+      query.conversations.forEach((conversation) => {
+        if (conversation.trainerId === user._id) {
+          setTrainerConvId(conversation._id);
+        }
+      });
+  }
+
+  async function deleteQuery() {
+    const storedToken = localStorage.getItem("authToken");
+
+    try {
+      const response = await axios.delete(
+        `${API_URL}/api/queries/${queryId}/delete`,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+      navigate("/queries");
+    } catch (error) {
+      console.log("error :>> ", error.response.data.errorMessage);
     }
-    findExistingConversationId();
-  }, [isLoading]);
-
-  // const handleReplySubmit = (e) => {
-  //   e.preventDefault();
-  //   const storedToken = localStorage.getItem("authToken");
-
-  //   const requestBody = {
-  //     queryId,
-  //   };
-  //   axios
-  //     .post(`${API_URL}/api/conversations/new`, requestBody, {
-  //       headers: { Authorization: `Bearer ${storedToken}` },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data._id);
-  //       navigate(`/conversations/${response.data._id}`);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  }
 
   return (
     <div className="QueryDetails text-white">
@@ -113,16 +110,22 @@ function QueryDetails() {
               {user.type === "trainee" && (
                 <>
                   {/* TODO fix these buttons and add functionality */}
-                  <Link to={`/projects/edit/${queryId}`} className="px-2">
+                  <Link
+                    to={`/projects/edit/${queryId}`}
+                    className="px-2"
+                    state={{ query }}
+                  >
                     <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
                       Edit Query
                     </button>
                   </Link>
-                  <Link to="/" className="px-2">
-                    <button className="btn btn-lg btn-secondary fw-bold border-white m-2">
-                      Delete Query
-                    </button>
-                  </Link>
+
+                  <button
+                    className="btn btn-lg btn-secondary fw-bold border-white m-2"
+                    onClick={() => deleteQuery()}
+                  >
+                    Delete Query
+                  </button>
                 </>
               )}
             </div>

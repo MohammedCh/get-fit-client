@@ -1,69 +1,124 @@
-import { useState, useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function EditQueryPage(props) {
-  const [title, setTitle] = useState("");
-  const [info, setInfo] = useState("");
-
-  const { queryId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { query } = location.state;
 
-  // This effect will run after the initial render and each time
-  // the project id coming from URL parameter `projectId` changes
+  const [title, setTitle] = useState(query.title);
+  const [age, setAge] = useState(query.age);
+  const [gender, setGender] = useState(query.gender);
+  const [goal, setGoal] = useState(query.goal);
+  const [info, setInfo] = useState(query.info);
 
-  useEffect(() => {
+  const { user } = useContext(AuthContext);
+  const handleTitle = (e) => setTitle(e.target.value);
+  const handleAge = (e) => setAge(e.target.value);
+  const handleGender = (e) => setGender(e.target.value);
+  const handleGoal = (e) => setGoal(e.target.value);
+  const handleInfo = (e) => setInfo(e.target.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const storedToken = localStorage.getItem("authToken");
+
+    const requestBody = {
+      title,
+      age,
+      gender,
+      goal,
+      info,
+    };
     axios
-      .get(`${API_URL}/api/queries/${queryId}`)
+      .put(`${API_URL}/api/queries/${query._id}/update`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
-        /*
-          We update the state with the project data coming from the response.
-          This way we set inputs to show the actual title and info of the query
-        */
-        const oneQuery = response.data;
-        setTitle(oneQuery.title);
-        setInfo(oneQuery.info);
+        // Reset the state
+        setTitle("");
+        setAge(0);
+        setGender("");
+        setGoal("");
+        setInfo("");
+        navigate(`/queries/${query._id}`);
       })
       .catch((error) => console.log(error));
-  }, [queryId]);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // Create an object representing the body of the PUT request
-    const requestBody = { title, info };
-
-    // Make a PUT request to update the project
-    axios
-      .put(`${API_URL}/api/queries/${queryId}`, requestBody)
-      .then((response) => {
-        // Once the request is resolved successfully and the project
-        // is updated we navigate back to the details page
-        navigate("/queries/" + queryId);
-      });
   };
   return (
-    <div className="EditQueryPage">
-      <h3>Edit the Query</h3>
-
-      <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <label>Other information::</label>
-        <textarea
-          name="info"
-          value={info}
-          onChange={(e) => setInfo(e.target.value)}
-        />
-
-        <input type="submit" value="Submit" />
+    <div className="AddQuery text-white mx-3">
+      <h3>Edit Query</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="form-floating text-black">
+          <input
+            type="text"
+            className="form-control"
+            id="floatingTitle"
+            value={title}
+            onChange={handleTitle}
+            placeholder="Query title"
+          />
+          <label htmlFor="floatingTitle">Query title</label>
+        </div>
+        <div className="form-floating text-black">
+          <input
+            type="number"
+            className="form-control"
+            id="floatingAge"
+            value={age}
+            onChange={handleAge}
+            placeholder="Age"
+          />
+          <label htmlFor="floatingAge">Age</label>
+        </div>
+        <div className="input-group form-floating text-black">
+          <select
+            className="custom-select form-control"
+            id="floatingGender"
+            onChange={handleGender}
+          >
+            <option selected>{gender}</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">other</option>
+          </select>
+          <label htmlFor="floatingGender">Gender</label>
+        </div>
+        <div className="form-floating text-black">
+          <input
+            type="text"
+            className="form-control"
+            id="floatingGoal"
+            value={goal}
+            onChange={handleGoal}
+            placeholder="Goal"
+          />
+          <label htmlFor="floatingGoal">Goal</label>
+        </div>
+        <div className="form-floating text-black">
+          <textarea
+            style={{ height: "8em" }}
+            type="text"
+            className="form-control"
+            id="floatingInfo"
+            value={info}
+            onChange={handleInfo}
+            placeholder="Description & additional information"
+          />
+          <label htmlFor="floatingInfo">
+            Description & additional information
+          </label>{" "}
+        </div>
+        <button
+          className="btn btn-lg btn-secondary fw-bold border-white mt-4"
+          type="submit"
+        >
+          Save
+        </button>
       </form>
     </div>
   );

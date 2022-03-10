@@ -1,8 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import TextBubble from "../components/TextBubble";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import React ,{ useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -13,27 +12,40 @@ function Conversation() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const location = useLocation();
+  const { profile } = location.state;
+
   const { user } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const storedToken = localStorage.getItem("authToken");
+    if (message.trim()) {
+      const storedToken = localStorage.getItem("authToken");
 
-    const requestBody = {
-      queryId: conversation.queryId,
-      message,
-    };
-    axios
-      .post(`${API_URL}/api/conversations/${conversationId}`, requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        // Reset the state
-        setMessage("");
-        getConversation();
-      })
-      .catch((error) => console.log(error));
+      const requestBody = {
+        queryId: conversation.queryId,
+        message,
+      };
+      axios
+        .post(`${API_URL}/api/conversations/${conversationId}`, requestBody, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          // Reset the state
+          setMessage("");
+          getConversation();
+
+          //scroll to bottom
+          scrollToBottom();
+        })
+        .catch((error) => console.log(error));
+    }
   };
+
+  const fieldRef = useRef(null);
+  function scrollToBottom() {
+    fieldRef.current.focus();
+  }
   const getConversation = async () => {
     // Send the token through the request "Authorization" Headers
     const storedToken = localStorage.getItem("authToken");
@@ -46,8 +58,9 @@ function Conversation() {
       );
       setConversation(response.data);
       setIsLoading(false);
+      scrollToBottom()
     } catch (error) {
-      console.log("error :>> ", error);
+      console.log("error :>> ", error.response.data.errorMessage);
     }
   };
   // Get the token from the localStorage
@@ -60,7 +73,7 @@ function Conversation() {
       {!isLoading && (
         <>
           {user.type === "trainee" && (
-            <div className="card-header d-flex justify-content-between align-items-center p-3">
+            <div className="card-header d-flex justify-content-between align-items-center p-3 fixed-top bg-dark">
               <Link to={"/conversations"}>
                 <button className="btn btn-lg btn-secondary fw-bold m-2">
                   {"<"}
@@ -75,13 +88,13 @@ function Conversation() {
                 className="fw-bold mb-0 col-11 text-white"
               >
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                  src={profile.imgUrl}
                   alt="avatar"
                   className="rounded-circle me-3 shadow-1-strong"
                   width={60}
                 />
                 <span>
-                  Brad Pitt{" "}
+                  {profile.name}
                   <i
                     style={{
                       fontSize: "0.8em",
@@ -95,7 +108,7 @@ function Conversation() {
             </div>
           )}
           {user.type === "trainer" && (
-            <div className="card-header d-flex justify-content-between align-items-center p-3">
+            <div className="card-header d-flex justify-content-between align-items-center p-3 fixed-top bg-dark">
               <Link to={"/conversations"}>
                 <button className="btn btn-lg btn-secondary fw-bold m-2">
                   {"<"}
@@ -129,15 +142,30 @@ function Conversation() {
               return <TextBubble key={message._id} message={message} />;
             })}
           </ul>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button type="submit">Send</button>
+
+          <form onSubmit={handleSubmit} className="fixed-bottom">
+            <div className="input-group">
+              <input
+                style={{ minHeight: "4em" }}
+                type="text"
+                className="form-control"
+                placeholder="Type new message..."
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <div className="input-group-append">
+                <button
+                  style={{ minHeight: "4em" }}
+                  className="btn btn-lg btn-secondary fw-bold"
+                  type="submit"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
           </form>
+          <input style={{width:"1px", height:"1px", marginTop:"15%"}} ref={fieldRef} className="bg-dark"/>
         </>
       )}
     </div>

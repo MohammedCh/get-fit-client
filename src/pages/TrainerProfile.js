@@ -19,7 +19,7 @@ function TrainerProfile(props) {
   const params = useParams();
 
   // Helper function that makes a GET request to the API
-  // and retrieves the query by id
+  // and retrieves the profile by id
   useEffect(() => {
     const getProfile = async () => {
       // Send the token through the request "Authorization" Headers
@@ -38,7 +38,7 @@ function TrainerProfile(props) {
           setIsLoading(false);
         }
       } catch (error) {
-        console.log("error :>> ", error);
+        console.log("error :>> ", error.response.data.errorMessage);
       }
     };
     getProfile();

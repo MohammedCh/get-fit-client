@@ -73,97 +73,121 @@ function SignupPage(props) {
 
   return (
     <div className="SignupPage p-3">
-      <main className="form-signin text-white">
-        <form onSubmit={handleSignupSubmit}>
-          <h1 className="h3 mb-3 fw-normal">Please sign up</h1>
-          <div className="form-floating text-black">
-            <input
-              type="text"
-              className="form-control"
-              id="floatingUsername"
-              value={username}
-              onChange={handleUsername}
-              placeholder="Username"
-            />
-            <label htmlFor="floatingUsername">Username</label>
-          </div>
-          <div className="form-floating text-black">
-            <input
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              value={password}
-              onChange={handlePassword}
-              placeholder="Password"
-            />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
+      {!userType && (
+        <ul className="list-unstyled pt-5">
+          <li className="nav-item">
+            <Link
+              to="/signup?userType=trainee"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              I want to train!
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/signup?userType=trainer"
+              className="btn btn-lg btn-secondary fw-bold border-white m-2"
+            >
+              I help others train!
+            </Link>
+          </li>
+        </ul>
+      )}
+      {userType && (
+        <main className="form-signin text-white">
+          <form onSubmit={handleSignupSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Please sign up</h1>
+            <div className="form-floating text-black">
+              <input
+                type="text"
+                className="form-control"
+                id="floatingUsername"
+                value={username}
+                onChange={handleUsername}
+                placeholder="Username"
+              />
+              <label htmlFor="floatingUsername">Username</label>
+            </div>
+            <div className="form-floating text-black">
+              <input
+                type="password"
+                className="form-control"
+                id="floatingPassword"
+                value={password}
+                onChange={handlePassword}
+                placeholder="Password"
+              />
+              <label htmlFor="floatingPassword">Password</label>
+            </div>
 
-          {userType === "trainer" && (
-            <>
-              <label
-                className="mt-4 bg-dark"
-                htmlFor="exampleFormControlInput1"
-              >
-                <b>
-                  Profile info that will be shown to users & potential clients:
-                </b>
-              </label>
+            {userType === "trainer" && (
+              <>
+                <label
+                  className="mt-4 bg-dark"
+                  htmlFor="exampleFormControlInput1"
+                >
+                  <b>
+                    Profile info that will be shown to users & potential
+                    clients:
+                  </b>
+                </label>
 
-              <div className="form-floating text-black">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingName"
-                  value={name}
-                  onChange={handleName}
-                  placeholder="Full name"
-                />
-                <label htmlFor="floatingName">Full name</label>
-              </div>
-              <div className="form-floating text-black">
-                <textarea
-                  style={{ height: "8em" }}
-                  className="form-control"
-                  id="floatingDescription"
-                  value={description}
-                  onChange={handleDescription}
-                  placeholder="Description"
-                />
-                <label htmlFor="floatingDescription">Description</label>
-              </div>
-              <div className="text-black">
-                <input
-                  type="file"
-                  className="form-control form-control-lg"
-                  value={image}
-                  onChange={handleImage}
-                />
-                {imagePreview && (
-                  <img
-                    className="my-2"
-                    style={{ width: "15%" }}
-                    src={imagePreview}
-                    alt="preview"
+                <div className="form-floating text-black">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="floatingName"
+                    value={name}
+                    onChange={handleName}
+                    placeholder="Full name"
                   />
-                )}
-              </div>
-            </>
+                  <label htmlFor="floatingName">Full name</label>
+                </div>
+                <div className="form-floating text-black">
+                  <textarea
+                    style={{ height: "8em" }}
+                    className="form-control"
+                    id="floatingDescription"
+                    value={description}
+                    onChange={handleDescription}
+                    placeholder="Description"
+                  />
+                  <label htmlFor="floatingDescription">Description</label>
+                </div>
+                <div className="text-black">
+                  <input
+                    type="file"
+                    className="form-control form-control-lg"
+                    value={image}
+                    onChange={handleImage}
+                  />
+                  {imagePreview && (
+                    <img
+                      className="my-2"
+                      style={{ width: "15%" }}
+                      src={imagePreview}
+                      alt="preview"
+                    />
+                  )}
+                </div>
+              </>
+            )}
+            <button
+              className="btn btn-lg btn-secondary fw-bold border-white mt-4"
+              type="submit"
+            >
+              Sign up
+            </button>
+          </form>
+          {errorMessage && (
+            <p className="error-message text-danger fw-bold">{errorMessage}</p>
           )}
-          <button
-            className="btn btn-lg btn-secondary fw-bold border-white mt-4"
-            type="submit"
-          >
-            Sign up
-          </button>
-        </form>
-        <p>
-          Already have account?{" "}
-          <Link to={`/login?userType=${userType}`}> Login</Link>
-        </p>
-
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </main>
+          <p>
+            Already have account?{" "}
+            <Link to={`/login?userType=${userType}`}> Login</Link>
+          </p>
+        </main>
+      )}
     </div>
   );
 }
