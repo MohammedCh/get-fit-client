@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# GET FIT! (Ironhack-project-3)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="25%" src="public/front-page.png">
+This app is for all the heroes out there... the teachers, the plumbers, the women, the men, the engineers... But don't just be a hero... Look like one!
 
-## Available Scripts
+Post your fitness needs anonymously, and receive offers from the personal trainers on the platform. Connect and start training!!!
 
-In the project directory, you can run:
+Try all that and more on https://get-fit-app.netlify.app.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Motivation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This project was done as part of the Ironhack full time web development bootcamp. It is the third and last out of three main projects required to finish the bootcamp. The reason for choosing this theme, is because fitness should be part of everyone's life. This app helps everyone find the right personal trainer to help them achieve their fitness goals.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Wireframing
 
-### `npm run build`
+The project was started by creating wireframes to draw out the concept, as well as define the UI. There was more than one phase of design where we came back and edited the concept. Below you can see some of the sketches:
+<img width="25%" src="public/wireframes.png">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## React routes table
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img width="25%" src="public/react-routes.png">
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Build status
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The website hasn't undergone a lot of testing so it might contain some bugs. User experience has room for improvement.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Frameworks, libraries and technologies used
 
-## Learn More
+- Built using React, with the help of bootstrap
+- Bcrypt to support with authentication
+- Cloudinary to host the recipe images
+- Database: MongoDB for local testing, and Mongo Atlas for production
+- Git for distributed version control, and GitHub for source code management and hosting
+- Netlify for hosting the frontend of the application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Special thanks
 
-### Code Splitting
+Thanks to [Raymond](https://github.com/RaymondMaroun) and [Joana](https://github.com/jofariaironhack) for their guidance and support throughout the bootcamp and this project.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Created by
+[Mohammed Chakmakchi](https://github.com/MohammedCh).
